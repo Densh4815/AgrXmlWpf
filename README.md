@@ -1,6 +1,7 @@
 # 🏗️ AGR XML Generator
 
 WPF-приложение для формирования XML-файлов архитектурно-градостроительных решений (АГР) в соответствии с утвержденной XML-схемой.
+https://www.mos.ru/upload/content/files/7fc24614064f95e83de48ed566e27614/RDGPiDITpoIFC.pdf
 
 ## 📋 Возможности
 
@@ -70,3 +71,20 @@ WPF-приложение для формирования XML-файлов арх
     <ProjectOrganization>...</ProjectOrganization>
     ...
 </ArchitecturalUrbanPlanningSolution>
+
+## Сборка
+
+```powershell
+dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+```
+
+Готовый EXE:
+
+```text
+bin\Release\net8.0-windows\win-x64\publish\
+```
+
+## Скриншот
+
+![AGR XML Generator](AgrXmlWpf/Screenshot_1.png)
+
