@@ -1,0 +1,450 @@
+﻿<Window x:Class="AgrXmlWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:AgrXmlWpf"
+        mc:Ignorable="d"
+        Title="Формирование XML ТЭП"
+        Height="2950"
+        Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesignPaper}">
+
+    <Window.Resources>
+        <Style x:Key="FormTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+            <Setter Property="Margin" Value="0,6,0,6"/>
+            <Setter Property="MinHeight" Value="40"/>
+        </Style>
+
+        <Style x:Key="FormComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+            <Setter Property="Margin" Value="0,6,0,6"/>
+            <Setter Property="MinHeight" Value="40"/>
+        </Style>
+
+        <Style x:Key="FormDatePickerStyle" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}">
+            <Setter Property="Margin" Value="0,6,0,6"/>
+        </Style>
+
+        <Style x:Key="FormMultiLineTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+            <Setter Property="Margin" Value="0,6,0,6"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+
+        <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,10,12,0"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <!-- Верхняя плашка -->
+                <materialDesign:Card Padding="16" Margin="0,0,0,16" materialDesign:ElevationAssist.Elevation="Dp2">
+                    <StackPanel>
+                        <TextBlock Text="Формирование XML технико-экономических показателей"
+                                   FontSize="24"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Margin="0,8,0,0">
+                            <Run Text="* — обязательные поля   " Foreground="Red" FontWeight="Bold"/>
+                            <Run Text="(при наличии) — необязательные поля" Foreground="Gray" FontStyle="Italic"/>
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Основная информация -->
+                <materialDesign:Card Padding="16" Margin="0,0,0,16" materialDesign:ElevationAssist.Elevation="Dp2">
+                    <StackPanel>
+                        <TextBlock Text="Основная информация" Style="{StaticResource SectionTitleStyle}"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="320"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Наименование объекта"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="0" Grid.Column="1"
+                                     Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите наименование объекта"
+                                     Text="{Binding ObjectName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Регистрационный номер"/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="1" Grid.Column="1"
+                                     Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите регистрационный номер"
+                                     Text="{Binding RegistrationNumber, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Дата"/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <DatePicker Grid.Row="2" Grid.Column="1"
+                                        Style="{StaticResource FormDatePickerStyle}"
+                                        SelectedDate="{Binding Date}"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Адрес"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="3" Grid.Column="1"
+                                     Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите адрес"
+                                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="UUID"/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="4" Grid.Column="1"
+                                     Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите UUID"
+                                     Text="{Binding UUID, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Проектная организация"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="1"
+                                     Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите проектную организацию"
+                                     Text="{Binding ProjectOrganization, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Руководитель авторского коллектива"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="1"
+                                     Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите ФИО руководителя"
+                                     Text="{Binding ProjectTeamLead, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Виды работ"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <ComboBox Grid.Row="7" Grid.Column="1"
+                                      Style="{StaticResource FormComboBoxStyle}"
+                                      materialDesign:HintAssist.Hint="Выберите вид работ"
+                                      ItemsSource="{Binding WorkTypes}"
+                                      SelectedItem="{Binding SelectedWorkType}"/>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Списки -->
+                <materialDesign:Card Padding="16" Margin="0,0,0,16" materialDesign:ElevationAssist.Elevation="Dp2">
+                    <StackPanel>
+                        <TextBlock Text="Списки значений" Style="{StaticResource SectionTitleStyle}"/>
+                        <TextBlock Text="Каждое значение вводится с новой строки"
+                                   Foreground="Gray"
+                                   Margin="0,0,0,12"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="100"
+                                         materialDesign:HintAssist.Hint="Кадастровые номера (при наличии)"
+                                         Text="{Binding CadastralNumbersText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="100"
+                                         materialDesign:HintAssist.Hint="Номера ППТ (при наличии)"
+                                         Text="{Binding PPTNumbersText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="100"
+                                         materialDesign:HintAssist.Hint="Номера КРТ (при наличии)"
+                                         Text="{Binding KRTNumbersText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="120"
+                                         materialDesign:HintAssist.Hint="Участники авторского коллектива *"
+                                         Text="{Binding ProjectTeamMembersText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="100"
+                                         materialDesign:HintAssist.Hint="Номера ГПЗУ (при наличии)"
+                                         Text="{Binding GPZUNumbersText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="100"
+                                         materialDesign:HintAssist.Hint="Номера решений ГЗК (при наличии)"
+                                         Text="{Binding GZKDecisionNumbersText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="100"
+                                         materialDesign:HintAssist.Hint="Номера ППМ (при наличии)"
+                                         Text="{Binding PPMNumbersText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBox Style="{StaticResource FormMultiLineTextBoxStyle}"
+                                         Height="120"
+                                         materialDesign:HintAssist.Hint="Функциональные назначения *"
+                                         Text="{Binding FunctionalPurposesText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- ТЭП -->
+                <materialDesign:Card Padding="16" Margin="0,0,0,16" materialDesign:ElevationAssist.Elevation="Dp2">
+                    <StackPanel>
+                        <TextBlock Text="ТЭП и параметры объекта" Style="{StaticResource SectionTitleStyle}"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="320"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Высота застройки, м."/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите высоту застройки"
+                                     Text="{Binding BuildingHeight}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Площадь участка, га"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите площадь участка"
+                                     Text="{Binding Area}"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Суммарная поэтажная площадь, кв.м."/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}"
+                                     materialDesign:HintAssist.Hint="Введите суммарную поэтажную площадь"
+                                     Text="{Binding TotalFloorArea}"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Площадь жилой части, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding ResidentialPartArea}"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Жилая часть жилых объектов, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding ResidentialPartOfResidentialArea}"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Нежилая часть жилых объектов, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding NonResidentialPartOfResidentialArea}"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Нежилые объекты, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding NonResidentialObjectsArea}"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Общая площадь объекта, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding TotalObjectArea}"/>
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Наземная площадь, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="8" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding AboveGroundArea}"/>
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Подземная площадь, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding UndergroundArea}"/>
+
+                            <TextBlock Grid.Row="10" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Нежилая наземная площадь (жилые здания), кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="10" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding NonResidentialAboveGroundAreaNonResidentialPart}"/>
+
+                            <TextBlock Grid.Row="11" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Нежилая наземная площадь (нежилые объекты), кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="11" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding NonResidentialAboveGroundAreaNonResidentialObjects}"/>
+
+                            <TextBlock Grid.Row="12" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Площадь квартир без летних помещений, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="12" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding ApartmentsAreaExSummerPremises}"/>
+
+                            <TextBlock Grid.Row="13" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Количество квартир"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="13" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding ApartmentsCount}"/>
+
+                            <TextBlock Grid.Row="14" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Площадь озеленения, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="14" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding GreenArea}"/>
+
+                            <TextBlock Grid.Row="15" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Площадь детских площадок, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="15" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding ChildrenPlaygroundArea}"/>
+
+                            <TextBlock Grid.Row="16" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Площадь площадок отдыха, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="16" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding RecreationsArea}"/>
+
+                            <TextBlock Grid.Row="17" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Высота объекта, м."/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="17" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding ObjectHeight}"/>
+
+                            <TextBlock Grid.Row="18" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Количество этажей"/>
+                                <Run Text=" *" Foreground="Red" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="18" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding FloorsCount}"/>
+
+                            <TextBlock Grid.Row="19" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Площадь квартир, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="19" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding ApartmentsArea}"/>
+
+                            <TextBlock Grid.Row="20" Grid.Column="0" Style="{StaticResource FieldLabelStyle}">
+                                <Run Text="Общая площадь квартир, кв.м."/>
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <TextBox Grid.Row="20" Grid.Column="1" Style="{StaticResource FormTextBoxStyle}" Text="{Binding TotalApartmentsArea}"/>
+
+                            <TextBlock Grid.Row="21" Grid.Column="0" Style="{StaticResource FieldLabelStyle}" >
+                                <Run Text="Количество информационных конструкций / параметры"/>                                
+                                <Run Text=" (при наличии)" Foreground="Gray" FontStyle="Italic"/>
+                            </TextBlock>
+                            <StackPanel Grid.Row="21" Grid.Column="1">
+                                <TextBox Style="{StaticResource FormTextBoxStyle}"
+                                         materialDesign:HintAssist.Hint="Количество информационных конструкций"
+                                         Text="{Binding InformationStructuresCount}"/>
+                                <TextBox Style="{StaticResource FormTextBoxStyle}"
+                                         materialDesign:HintAssist.Hint="Параметры информационных конструкций"
+                                         Text="{Binding InformationStructuresParameters, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Кнопки -->
+        <Grid Grid.Row="1" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    Content="Очистить поля"
+                    Width="140"
+                    Height="40"
+                    Margin="0,0,8,0"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Command="{Binding ClearCommand}"/>
+
+            <Button Grid.Column="2"
+                    Content="Сохранить XML"
+                    Width="150"
+                    Height="40"
+                    Margin="8,0,8,0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding SaveXmlCommand}"/>
+
+            <Button Grid.Column="3"
+                    Content="Заполнить пример"
+                    Width="160"
+                    Height="40"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Command="{Binding FillSampleCommand}"/>
+        </Grid>
+    </Grid>
+</Window>
