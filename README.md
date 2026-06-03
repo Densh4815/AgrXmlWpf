@@ -84,12 +84,6 @@ dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=
 bin\Release\net8.0-windows\win-x64\publish\
 ```
 
-## Основание
-
-XML формируется в соответствии с требованиями Приложения №5 документа:
-
-:contentReference[oaicite:0]{index=0}
-
 ## Скриншот
 
 ![AGR XML Generator](AgrXmlWpf/Screenshot_1.png)
