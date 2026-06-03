@@ -25,6 +25,7 @@ namespace AgrXmlWpf
             "новое строительство и реконструкция"
         };
 
+
     public string ObjectName { get; set; }
     public string RegistrationNumber { get; set; }
     public DateTime? Date { get; set; }
