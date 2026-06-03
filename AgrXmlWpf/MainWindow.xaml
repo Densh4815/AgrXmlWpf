@@ -7,8 +7,10 @@
         xmlns:local="clr-namespace:AgrXmlWpf"
         mc:Ignorable="d"
         Title="Формирование XML ТЭП"
-        Height="2950"
+        SizeToContent="Manual"
         Width="1000"
+        Height="710"
+
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesignPaper}">
 
