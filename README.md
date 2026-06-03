@@ -92,5 +92,5 @@ XML формируется в соответствии с требованиям
 
 ## Скриншот
 
-![AGR XML Generator](screenshot.png)
+![AGR XML Generator](AgrXmlWpf/Screenshot_1.png)
 
